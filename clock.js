@@ -1,22 +1,25 @@
 var hands = [
   {
     name: "second",
-    elapsed: 0,
-    unitsInParent: 60
+    elapsed: 3580,
+    clockPositions: 60,
+    secondsInUnit: 1
   }, {
     name: "minute",
     elapsed: 0,
-    unitsInParent: 60
+    clockPositions: 60,
+    secondsInUnit: 60
   }, {
     name: "hour",
     elapsed: 0,
-    unitsInParent: 12
+    clockPositions: 12,
+    secondsInUnit: (12 * 60)
   }
 ];
 var degreesInCircle = 360;
 
 function howManyDeg(whichHand) {
-  return ((degreesInCircle/hands[whichHand].unitsInParent) * hands[whichHand].elapsed);
+  return ((degreesInCircle/hands[whichHand].clockPositions) * hands[whichHand].elapsed);
 }
 function handRotate(whichHand) {
   var handToRotate = document.getElementById(hands[whichHand].name);
@@ -30,10 +33,13 @@ setInterval(function(){
   handRotate(0);
 
   for (var i = 1; i < hands.length; i++) {
-    if (hands[i - 1].elapsed % hands[i - 1].unitsInParent === 0) {
-      hands[i].elapsed++;
-      // MANIPULATE THAT DOM BROOOOO
-      handRotate(i);
-    }
+    hands[i].elapsed = Math.floor(hands[0].elapsed / hands[i].secondsInUnit);
+    handRotate(i);
+
+    // if (hands[0].elapsed % hands[i].secondsInUnit === 0) {
+    //   hands[i].elapsed++;
+    //   // MANIPULATE THAT DOM BROOOOO
+    //   handRotate(i);
+    // }
   }
-}, 50);
+}, 1000);
