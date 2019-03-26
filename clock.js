@@ -1,7 +1,8 @@
+var currentDate = Date.now();
 var hands = [
   {
     name: "second",
-    elapsed: 3580,
+    elapsed: (Math.floor((currentDate/1000))),
     clockPositions: 60,
     secondsInUnit: 1
   }, {
@@ -35,11 +36,5 @@ setInterval(function(){
   for (var i = 1; i < hands.length; i++) {
     hands[i].elapsed = Math.floor(hands[0].elapsed / hands[i].secondsInUnit);
     handRotate(i);
-
-    // if (hands[0].elapsed % hands[i].secondsInUnit === 0) {
-    //   hands[i].elapsed++;
-    //   // MANIPULATE THAT DOM BROOOOO
-    //   handRotate(i);
-    // }
   }
 }, 1000);
